@@ -1,6 +1,6 @@
 <template>
     <div class="canvasContainer">
-        <canvas ref="painting" id="painting"
+        <canvas ref="painting" id="canvas"
                 width="490"
                 height="220"
                 @touchstart="onTouchStart"
@@ -27,6 +27,7 @@
     data() {
       return {
         context: null,
+        canvas: null,
         paint: false,
         dragable: [],
         mouseEvent: null,
@@ -47,7 +48,8 @@
       }
     },
     mounted() {
-      this.context = document.getElementById('painting').getContext('2d');
+      this.canvas = document.getElementById('canvas');
+      this.context = this.canvas.getContext('2d');
       this.curColor = this.currentColor || this.colors.color1;
     },
     methods: {
@@ -109,9 +111,7 @@
       clearCanvas() {
         console.log(canvas);
 //        canvas.width = canvas.width;
-      }
-
-
+      },
       /**
        * Methods for TOUCH EVENTS
        * onTouchStart:
@@ -165,7 +165,7 @@
         text-align: center;
     }
 
-    #painting {
+    #canvas {
         box-shadow: 0 1px 1px #00000014;
     }
 </style>
