@@ -159,9 +159,10 @@
 <style>
     .canvasContainer {
         width: 100%;
-        height: 100%;
+        height: 85vh;
         border-radius: 15px;
         background-color: white;
+        box-shadow: 1px 3px 4px 1px #00000030;
         text-align: center;
     }
 
