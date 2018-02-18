@@ -51,7 +51,7 @@
       this.context = this.canvas.getContext('2d');
     },
     computed: {
-      curColor: function() {
+      curColor: function () {
         return this.currentColor
       }
     },
@@ -76,10 +76,10 @@
         this.storeMouseX.push(x);
         this.storeMouseY.push(y);
         this.dragable.push(ableToPaint);
+        this.storeColors.push(this.curColor);
       },
       redraw() {
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height); // Clears the canvas
-        this.context.strokeStyle = this.curColor;
         this.context.lineJoin = "round";
         this.context.lineWidth = 5;
 
@@ -92,6 +92,7 @@
             this.context.moveTo(this.storeMouseX[i] - 1, this.storeMouseY[i]);
           }
 
+          this.context.strokeStyle = this.storeColors[i];
           this.context.lineTo(this.storeMouseX[i], this.storeMouseY[i]);
           this.context.closePath();
           this.context.stroke();
