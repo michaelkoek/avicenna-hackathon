@@ -14,7 +14,7 @@
                 </div>
                 <div>Gallery</div>
             </section>
-            <Canvas currentColor="" />
+            <Canvas :currentColor="chosenColor" />
         </main>
     </div>
 </template>
@@ -26,9 +26,14 @@
 
   export default {
     name: 'app',
+    data() {
+      return {
+        chosenColor: '#000',
+      }
+    },
     methods: {
-      selectColor: function(e) {
-        console.log(e.currentTarget.dataset.color);
+      selectColor(e) {
+        this.chosenColor = e.currentTarget.dataset.color
       }
     },
     components: {

@@ -37,7 +37,6 @@
         storeMouseX: [],
         storeMouseY: [],
         storeColors: [],
-        curColor: null,
         colors: {
           color1: '#000', // black
           color2: '#e8f904', // yellow
@@ -50,7 +49,11 @@
     mounted() {
       this.canvas = document.getElementById('canvas');
       this.context = this.canvas.getContext('2d');
-      this.curColor = this.currentColor || this.colors.color1;
+    },
+    computed: {
+      curColor: function() {
+        return this.currentColor
+      }
     },
     methods: {
       onMouseUp() {
@@ -59,9 +62,8 @@
       onMouseDown(e) {
         this.paint = true;
         this.lastPos = this.getMousePos(canvas, e);
-        this.storeMouseValues(this.lastPos.x, this.lastPos.y, this.paint);
+        this.storeMouseValues(this.lastPos.x, this.lastPos.y);
         this.redraw();
-
       },
       onMouseMove(e) {
         if (this.paint) {
@@ -74,11 +76,10 @@
         this.storeMouseX.push(x);
         this.storeMouseY.push(y);
         this.dragable.push(ableToPaint);
-        this.storeColors.push(this.curColor);
       },
       redraw() {
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height); // Clears the canvas
-
+        this.context.strokeStyle = this.curColor;
         this.context.lineJoin = "round";
         this.context.lineWidth = 5;
 
@@ -91,7 +92,6 @@
             this.context.moveTo(this.storeMouseX[i] - 1, this.storeMouseY[i]);
           }
 
-          this.context.strokeStyle = this.storeColors[i];
           this.context.lineTo(this.storeMouseX[i], this.storeMouseY[i]);
           this.context.closePath();
           this.context.stroke();
