@@ -1,20 +1,23 @@
 <template>
     <div id="app">
-        <Header />
+        <Header/>
         <main class="container">
             <section class="drawer">
                 <div>Pencil</div>
                 <div>Eraser</div>
                 <div>Colors:
-                <button @click="selectColor" data-color="#000">Black</button>
-                <button @click="selectColor" data-color="#e8f904">Yellow</button>
-                <button @click="selectColor" data-color="#5e41f5">Blue</button>
-                <button @click="selectColor" data-color="#71b573">Green</button>
-                <button @click="selectColor" data-color="#de4c0e">Red</button>
+                    <div class="button-group button-row">
+                        <div class="button-item" v-for="colorItem in colors" :key="colorItem.display">
+                            <button class="coloritem"
+                                    @click="selectColor"
+                                    :data-color="colorItem.color"
+                            >{{colorItem.display}}</button>
+                        </div>
+                    </div>
                 </div>
                 <div>Gallery</div>
             </section>
-            <Canvas :currentColor="chosenColor" />
+            <Canvas :currentColor="chosenColor" :availableColors="colors"/>
         </main>
     </div>
 </template>
@@ -29,6 +32,13 @@
     data() {
       return {
         chosenColor: '#000',
+        colors: [
+          { display: 'black', color: '#000' },
+          { display: 'yellow', color: '#e8f904' },
+          { display: 'blue', color: '#5e41f5' },
+          { display: 'green', color: '#71b573' },
+          { display: 'red', color: '#de4c0e' },
+        ],
       }
     },
     methods: {
@@ -57,5 +67,11 @@
     .drawer {
         flex: 0 0 175px;
         background-color: purple;
+    }
+    .button-group {
+        background-color: #EBEDF5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

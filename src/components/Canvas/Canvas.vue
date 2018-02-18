@@ -22,6 +22,10 @@
       currentColor: {
         type: String,
         default: '#000',
+      },
+      availableColors: {
+        type: Array,
+        required: true
       }
     },
     data() {
@@ -37,18 +41,13 @@
         storeMouseX: [],
         storeMouseY: [],
         storeColors: [],
-        colors: {
-          color1: '#000', // black
-          color2: '#e8f904', // yellow
-          color3: '#5e41f5', // blue
-          color4: '#71b573', // green
-          color5: '#de4c0e', // red
-        }
+        colors: [],
       }
     },
     mounted() {
       this.canvas = document.getElementById('canvas');
       this.context = this.canvas.getContext('2d');
+      this.colors = this.availableColors;
     },
     computed: {
       curColor: function () {
